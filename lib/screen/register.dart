@@ -1,16 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Register extends StatefulWidget {
-  Register({super.key});
-
-  @override
-  State<Register> createState() => _RegisterState();
-}
-
-class _RegisterState extends State<Register> {
+class Register extends StatelessWidget {
   TextEditingController controllerMail = TextEditingController();
-
   TextEditingController controllerPassword = TextEditingController();
+  FirebaseAuth user = FirebaseAuth.instance;
+
+  Register({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +56,25 @@ class _RegisterState extends State<Register> {
               height: 30.0,
             ),
             ElevatedButton(
-              onPressed: () {
-                print('================');
-                print(
-                    'GUARDAMOS: ${controllerMail.text} Y ${controllerPassword.text}');
-                print('================');
+              onPressed: () async {
+                try {
+                  final newUser = await user.createUserWithEmailAndPassword(
+                      email: controllerMail.text,
+                      password: controllerPassword.text);
+
+                  if (newUser.user?.uid != null || newUser.user?.uid != '') {
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushNamed(
+                      context,
+                      'cardCustom',
+                      arguments: {'uid': newUser.user?.uid},
+                    );
+                  }
+                } catch (e) {
+                  // ignore: avoid_print
+                  print('ERROR ${e}');
+                }
+
                 controllerMail.clear();
                 controllerPassword.clear();
               },
