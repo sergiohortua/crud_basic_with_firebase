@@ -59,8 +59,9 @@ class Register extends StatelessWidget {
               onPressed: () async {
                 try {
                   final newUser = await user.createUserWithEmailAndPassword(
-                      email: controllerMail.text,
-                      password: controllerPassword.text);
+                      email: controllerMail.text.trim(),
+                      password: controllerPassword.text.trim());
+                  await newUser.user!.sendEmailVerification();
 
                   if (newUser.user?.uid != null || newUser.user?.uid != '') {
                     // ignore: use_build_context_synchronously
