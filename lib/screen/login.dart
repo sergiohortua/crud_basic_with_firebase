@@ -66,7 +66,7 @@ class Login extends StatelessWidget {
                     // ignore: use_build_context_synchronously
                     Navigator.pushNamed(
                       context,
-                      'cardCustom',
+                      'cardList',
                       arguments: {'uid': newUser.user?.email},
                     );
                   }
@@ -78,7 +78,7 @@ class Login extends StatelessWidget {
                 controllerMail.clear();
                 controllerPassword.clear();
               },
-              child: const Text('Guardar'),
+              child: const Text('Ingresar'),
             ),
           ],
         ),

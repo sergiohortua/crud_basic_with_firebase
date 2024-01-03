@@ -67,7 +67,7 @@ class Register extends StatelessWidget {
                     // ignore: use_build_context_synchronously
                     Navigator.pushNamed(
                       context,
-                      'cardCustom',
+                      'cardList',
                       arguments: {'uid': newUser.user?.uid},
                     );
                   }

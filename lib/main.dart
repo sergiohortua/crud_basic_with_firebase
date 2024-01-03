@@ -1,8 +1,9 @@
 import 'package:crud_with_firebase/firebase_options.dart';
+import 'package:crud_with_firebase/screen/addUser.dart';
 import 'package:crud_with_firebase/screen/home.dart';
 import 'package:crud_with_firebase/screen/login.dart';
 import 'package:crud_with_firebase/screen/register.dart';
-import 'package:crud_with_firebase/screen/cardCustom.dart';
+import 'package:crud_with_firebase/screen/cardList.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
         'home': (context) => const Home(),
         'login': (context) => Login(),
         'register': (context) => Register(),
-        'cardCustom': (context) => const CardCustom(),
+        'cardList': (context) => CardList(),
+        'addUser': (context) => AddUser(),
       },
       initialRoute: 'home',
     );
