@@ -62,9 +62,27 @@ class CardList extends StatelessWidget {
                   document.data() as Map<String, dynamic>;
               print('====> ${document.data()}');
 
-              return ListTile(
-                title: Text(data['name']),
-                subtitle: Text(data['rol']),
+              return Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          Text(data['name']),
+                          Text(data['rol']),
+                        ],
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          print('DETALLES');
+                        },
+                        child: Text('Detalles'),
+                      )
+                    ],
+                  ),
+                ),
               );
             }).toList(),
           );
