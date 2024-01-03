@@ -9,12 +9,13 @@ class CardList extends StatelessWidget {
 
   CardList({Key? key})
       : _auth = FirebaseAuth.instance,
+        // users = FirebaseFirestore.instance
+        //     .collection(FirebaseAuth.instance.currentUser?.uid ?? '');
         users = FirebaseFirestore.instance
             .collection(FirebaseAuth.instance.currentUser?.uid ?? '');
 
   @override
   Widget build(BuildContext context) {
-    // print('**** ${user.currentUser?.uid}');
     var userCurrent = user.currentUser?.email;
     final Map<String, dynamic> datos =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
@@ -60,7 +61,7 @@ class CardList extends StatelessWidget {
             children: documents.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data() as Map<String, dynamic>;
-              print('====> ${document.data()}');
+              print('====> ${document.id}');
 
               return Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -80,7 +81,10 @@ class CardList extends StatelessWidget {
                           Navigator.pushNamed(
                             context,
                             'details',
-                            arguments: {'uid': document.data()},
+                            arguments: {
+                              'uid': document.data(),
+                              'id': document.id
+                            },
                           );
                         },
                         child: Text('Detalles'),
