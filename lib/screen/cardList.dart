@@ -9,10 +9,13 @@ class CardList extends StatelessWidget {
 
   CardList({Key? key})
       : _auth = FirebaseAuth.instance,
-        // users = FirebaseFirestore.instance
-        //     .collection(FirebaseAuth.instance.currentUser?.uid ?? '');
         users = FirebaseFirestore.instance
             .collection(FirebaseAuth.instance.currentUser?.uid ?? '');
+
+  Future<void> deleteUser({required idUser}) async {
+    // Simular una operación asíncrona, espera 2 segundos
+    await users.doc(idUser).delete();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +90,12 @@ class CardList extends StatelessWidget {
                           );
                         },
                         child: Text('Detalles'),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          deleteUser(idUser: document.id);
+                        },
+                        icon: const Icon(Icons.delete),
                       )
                     ],
                   ),
