@@ -1,4 +1,6 @@
 // import 'package:crud/common/person.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Details extends StatefulWidget {
@@ -21,6 +23,22 @@ class _DetailsState extends State<Details> {
   final TextEditingController _textEditingControllerAge =
       TextEditingController();
 
+  FirebaseAuth user = FirebaseAuth.instance;
+  FirebaseFirestore userSingle = FirebaseFirestore.instance;
+
+  Future<void> miFuncionAsync(
+      {required String idGlobal, required String idLocal}) async {
+    // Simulando una operación asíncrona, por ejemplo, espera 2 segundos
+    await userSingle.collection(idGlobal).doc(idLocal).update({
+      'name': _textEditingControllerName.text,
+      'age': int.parse(_textEditingControllerAge.text),
+      'rol': _textEditingControllerRol.text
+    });
+
+    // El código aquí se ejecuta después de que la operación asíncrona ha terminado
+    print('Operación asíncrona completada ${idGlobal} y ${idLocal}');
+  }
+
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> datos =
@@ -28,7 +46,14 @@ class _DetailsState extends State<Details> {
 
     // Accede a los datos individualmente
     dynamic dato1 = datos['uid'];
+    dynamic localId = datos['id'];
+    dynamic globalId = user.currentUser?.uid;
     print('XXXXXXXXXXXXXXXXXXX ${dato1}');
+    print('YYYYYYYYYYYYYYYYYYY ${user.currentUser?.uid}');
+    // print(
+    //     'ZZZZZZZZZZZZZZZzzzZ ${userSingle.collection('qXZExVSdkng2aMdvoLyzc3kqqN53').doc('IvmaTZVIUp35S1Ylm43D').update({
+    //       'name': 'vivi'
+    //     })}');
     _textEditingControllerName.text = dato1['name'];
     _textEditingControllerRol.text = dato1['rol'];
     _textEditingControllerAge.text = dato1['age'].toString();
@@ -109,18 +134,14 @@ class _DetailsState extends State<Details> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // int age =
-                        //     int.tryParse(_textEditingControllerAge.text) ?? 0;
+                        miFuncionAsync(
+                          idGlobal: globalId,
+                          idLocal: localId,
+                        );
+                        setState(() {
+                          Navigator.pop(context);
+                        });
 
-                        // setState(() {
-                        //   Navigator.pop(
-                        //       context,
-                        //       Person(
-                        //         _textEditingControllerName.text,
-                        //         _textEditingControllerDescription.text,
-                        //         age,
-                        //       ));
-                        // });
                         print('RETURN');
                       },
                       child: Text('Guardar'),
