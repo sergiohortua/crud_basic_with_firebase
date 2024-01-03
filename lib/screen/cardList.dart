@@ -77,6 +77,11 @@ class CardList extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () {
                           print('DETALLES');
+                          Navigator.pushNamed(
+                            context,
+                            'details',
+                            arguments: {'uid': document.data()},
+                          );
                         },
                         child: Text('Detalles'),
                       )

@@ -1,5 +1,6 @@
 import 'package:crud_with_firebase/firebase_options.dart';
 import 'package:crud_with_firebase/screen/addUser.dart';
+import 'package:crud_with_firebase/screen/details.dart';
 import 'package:crud_with_firebase/screen/home.dart';
 import 'package:crud_with_firebase/screen/login.dart';
 import 'package:crud_with_firebase/screen/register.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         'register': (context) => Register(),
         'cardList': (context) => CardList(),
         'addUser': (context) => AddUser(),
+        'details': (context) => Details(),
       },
       initialRoute: 'home',
     );
