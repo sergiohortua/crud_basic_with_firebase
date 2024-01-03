@@ -1,12 +1,8 @@
-// import 'package:crud/common/person.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Details extends StatefulWidget {
-  // Person person;
-  // int index;
-
   Details({super.key});
 
   @override
@@ -26,17 +22,13 @@ class _DetailsState extends State<Details> {
   FirebaseAuth user = FirebaseAuth.instance;
   FirebaseFirestore userSingle = FirebaseFirestore.instance;
 
-  Future<void> miFuncionAsync(
+  Future<void> updateForm(
       {required String idGlobal, required String idLocal}) async {
-    // Simulando una operación asíncrona, por ejemplo, espera 2 segundos
     await userSingle.collection(idGlobal).doc(idLocal).update({
       'name': _textEditingControllerName.text,
       'age': int.parse(_textEditingControllerAge.text),
       'rol': _textEditingControllerRol.text
     });
-
-    // El código aquí se ejecuta después de que la operación asíncrona ha terminado
-    print('Operación asíncrona completada ${idGlobal} y ${idLocal}');
   }
 
   @override
@@ -44,16 +36,10 @@ class _DetailsState extends State<Details> {
     final Map<String, dynamic> datos =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    // Accede a los datos individualmente
-    dynamic dato1 = datos['uid'];
-    dynamic localId = datos['id'];
-    dynamic globalId = user.currentUser?.uid;
-    print('XXXXXXXXXXXXXXXXXXX ${dato1}');
-    print('YYYYYYYYYYYYYYYYYYY ${user.currentUser?.uid}');
-    // print(
-    //     'ZZZZZZZZZZZZZZZzzzZ ${userSingle.collection('qXZExVSdkng2aMdvoLyzc3kqqN53').doc('IvmaTZVIUp35S1Ylm43D').update({
-    //       'name': 'vivi'
-    //     })}');
+    Map<String, dynamic> dato1 = datos['uid'];
+    String localId = datos['id'].toString();
+    String? globalId = user.currentUser?.uid;
+
     _textEditingControllerName.text = dato1['name'];
     _textEditingControllerRol.text = dato1['rol'];
     _textEditingControllerAge.text = dato1['age'].toString();
@@ -134,15 +120,13 @@ class _DetailsState extends State<Details> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        miFuncionAsync(
-                          idGlobal: globalId,
+                        updateForm(
+                          idGlobal: globalId ?? '',
                           idLocal: localId,
                         );
                         setState(() {
                           Navigator.pop(context);
                         });
-
-                        print('RETURN');
                       },
                       child: Text('Guardar'),
                     )
