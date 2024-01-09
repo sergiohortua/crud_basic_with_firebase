@@ -1,12 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
-  TextEditingController controllerMail = TextEditingController();
-  TextEditingController controllerPassword = TextEditingController();
-  FirebaseAuth user = FirebaseAuth.instance;
-
+class Login extends StatefulWidget {
   Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  TextEditingController controllerMail = TextEditingController();
+
+  TextEditingController controllerPassword = TextEditingController();
+
+  FirebaseAuth user = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {

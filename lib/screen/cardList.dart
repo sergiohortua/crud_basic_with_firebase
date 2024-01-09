@@ -29,7 +29,6 @@ class CardList extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, 'addUser');
-          print('Botón flotante presionado');
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.blue,
@@ -64,7 +63,6 @@ class CardList extends StatelessWidget {
             children: documents.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data() as Map<String, dynamic>;
-              print('====> ${document.id}');
 
               return Padding(
                 padding: const EdgeInsets.all(10.0),
