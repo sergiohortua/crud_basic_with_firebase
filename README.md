@@ -1,6 +1,6 @@
-# crud_with_firebase
+# crud_basic_with_firebase
 
-A new Flutter project.
+Se conecta con firebase para autenticar y guardar en base de datos. El proyecto es simple sin validacion de campos y no contiene loading cuando ejecuta las peticiones. 
 
 ## Getting Started
 
